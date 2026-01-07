@@ -19,7 +19,7 @@ st.set_page_config(
 )
 
 # ======================================================
-# Custom CSS (Meniru Tailwind UI)
+# Custom CSS
 # ======================================================
 st.markdown("""
 <style>
@@ -309,4 +309,5 @@ elif st.session_state.step == "result":
         if st.button("Bersihkan & Analisis Lagi"):
             st.session_state.step = "upload"
             st.rerun()
+
 
