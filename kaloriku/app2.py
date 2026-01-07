@@ -10,6 +10,10 @@ from tensorflow.keras.preprocessing.image import load_img, img_to_array
 import json
 import time
 
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent
+
 # ======================================================
 # Page Configuration
 # ======================================================
@@ -145,7 +149,8 @@ div[data-testid="stFileUploader"] label {
 # ======================================================
 @st.cache_resource
 def load_model():
-    return tf.keras.models.load_model("model/mobilenetv2_finetune_v3.h5")
+    model_path = BASE_DIR / "model" / "mobilenetv2_finetune_v3.h5"
+    return tf.keras.models.load_model(model_path)
 
 model = load_model()
 
@@ -154,7 +159,8 @@ model = load_model()
 # ======================================================
 @st.cache_data
 def load_calorie_data():
-    df = pd.read_csv("data/kalori_fatsecret.csv")
+    csv_path = BASE_DIR / "data" / "kalori_fatsecret.csv"
+    df = pd.read_csv(csv_path)
     return df.set_index("label").to_dict("index")
 
 kalori_map = load_calorie_data()
@@ -162,7 +168,8 @@ kalori_map = load_calorie_data()
 # ======================================================
 # Load Class Names
 # ======================================================
-with open("model/class_names.json", "r") as f:
+class_names_path = BASE_DIR / "model" / "class_names.json"
+with open(class_names_path, "r") as f:
     CLASS_NAMES = json.load(f)
 
 # ======================================================
@@ -309,5 +316,6 @@ elif st.session_state.step == "result":
         if st.button("Bersihkan & Analisis Lagi"):
             st.session_state.step = "upload"
             st.rerun()
+
 
 
