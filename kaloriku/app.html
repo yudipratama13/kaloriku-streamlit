@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Unggah Gambar &amp; Estimasi Kalori - Kaloriku</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#2563EB", 
+                        "background-light": "#F3F4F6", 
+                        "background-dark": "#232838", 
+                        "surface-dark": "#1F2330", 
+                        "card-dark": "#505050", 
+                    },
+                    fontFamily: {
+                        display: ["Poppins", "sans-serif"],
+                        body: ["Poppins", "sans-serif"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.5rem",
+                    },
+                },
+            },
+        };
+    </script>
+<style>
+        body {
+            font-family: "Poppins", sans-serif
+        }
+        .dashed-bg {
+            background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuBd3_ys4Vny3VDewEfMaWXGD97q1oLgFL8oZKguJp00ANW4kp1AUoPat9aoQ5a0-qqdD6cuD8lyqaPXIO6oFyUkKNgLrLAlogUF1cQloC8A4HqhCom5oKeJMjSKxvFj8icP6x5rQ7vBNzHRH5-QNI6mD-N_OPDWg6RAy0RoA-EzXMCpbOi2THWl0LTVgfcXjjIvoZen_g-3lUyvaOYwBoHNEji8puRY6kIOvCc8Mav94RMZiROuyMeoTcHlDJ5YO5wbugsdING-_vc);
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-gray-800 dark:text-white min-h-screen flex flex-col font-body transition-colors duration-300">
+<header class="w-full border-b border-gray-300 dark:border-gray-700 py-6 px-8 md:px-16 flex items-center bg-white dark:bg-surface-dark sticky top-0 z-50">
+<div class="flex items-center gap-3">
+<div class="bg-primary/10 dark:bg-primary/20 text-primary border border-primary/20 rounded-lg p-1.5">
+<span class="material-icons-outlined text-2xl">local_dining</span>
+</div>
+<span class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Kaloriku.</span>
+</div>
+</header>
+<main class="flex-grow flex flex-col items-center justify-center px-4 py-12 md:px-8 max-w-7xl mx-auto w-full">
+<div class="text-center mb-10 max-w-4xl space-y-4">
+<h1 class="text-3xl md:text-5xl font-bold leading-tight text-gray-900 dark:text-white">
+                Cek Kalori Makananmu<br/>
+<span class="text-primary">Hanya dengan Satu Foto</span>
+</h1>
+<p class="text-gray-600 dark:text-gray-300 text-sm md:text-base leading-relaxed max-w-2xl mx-auto">
+                Model AI kami dirancang untuk mendeteksi berbagai jenis makanan dan memberikan estimasi kalori secara akurat untuk mendukung gaya hidup sehatmu.
+            </p>
+</div>
+<div class="w-full max-w-4xl bg-white dark:bg-card-dark rounded-2xl shadow-2xl overflow-hidden transition-all duration-300 relative min-h-[500px] flex flex-col">
+<div class="hidden absolute inset-0 p-8 flex flex-col items-center justify-center bg-white dark:bg-card-dark z-10" id="state-upload">
+<div class="w-full h-full rounded-xl border-3 border-dashed border-gray-300 dark:border-gray-500 hover:border-primary dark:hover:border-primary transition-colors cursor-pointer group flex flex-col items-center justify-center bg-gray-50 dark:bg-black/20 relative dashed-bg">
+<input aria-label="Upload image" class="absolute inset-0 opacity-0 cursor-pointer w-full h-full z-20" type="file"/>
+<div class="bg-white dark:bg-surface-dark p-6 rounded-full shadow-lg mb-6 group-hover:scale-110 transition-transform duration-300">
+<span class="material-icons-outlined text-5xl text-primary">add_a_photo</span>
+</div>
+<h3 class="text-xl font-bold text-gray-800 dark:text-white mb-2">Unggah Gambar Makanan</h3>
+<p class="text-gray-500 dark:text-gray-400 text-sm max-w-xs text-center">Format JPG, PNG, atau WEBP. Maksimal 5MB.</p>
+<button class="mt-6 bg-primary hover:bg-blue-700 text-white font-medium py-2.5 px-6 rounded-lg transition shadow-md pointer-events-none">
+                        Pilih File
+                    </button>
+</div>
+</div>
+<div class="hidden absolute inset-0 p-8 flex flex-col items-center justify-center bg-white dark:bg-card-dark z-20" id="state-preview">
+<div class="w-full max-w-lg space-y-6">
+<div class="relative w-full aspect-video rounded-xl overflow-hidden shadow-lg border border-gray-200 dark:border-gray-600 bg-black">
+<img alt="Preview" class="w-full h-full object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBV19I23rD1LDDqBiIsBBo1NzGAqHFGj5P5NkpRxFV8BIEjdbq9BXFiwTya4LYkmcX61n8O2KIQ6JRAVw7VGBq7paaLIZperSwPTW7elpthFvHgT36HQ2_PslisvjHIwt1l0Mb277KwmMOhfIDMSoySjqrYc-3Kx2SKuVPm-W-bRGBZIUXGYo9BbDKX3h6DtNQcHESuvezJ8xvfQakTKa3bW5taeAW_Y7lwJVzvGYyMfVtOAIUaOXfcRekYF0lrWU1zdc_NbYY7rmo"/>
+</div>
+<div class="bg-gray-50 dark:bg-surface-dark p-4 rounded-lg flex items-center justify-between border border-gray-100 dark:border-gray-600">
+<div class="flex items-center gap-3 overflow-hidden">
+<span class="material-icons-outlined text-gray-400">image</span>
+<div class="flex flex-col">
+<span class="font-medium text-sm truncate max-w-[200px] text-gray-800 dark:text-white">IMG_0332_Food.jpg</span>
+<span class="text-xs text-gray-500">879 KB</span>
+</div>
+</div>
+<button class="text-red-500 hover:text-red-700 p-2 rounded-full hover:bg-red-50 dark:hover:bg-red-900/20 transition">
+<span class="material-icons-outlined">close</span>
+</button>
+</div>
+<button class="w-full bg-primary hover:bg-blue-700 text-white font-bold py-3.5 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2">
+<span class="material-icons-outlined">analytics</span>
+                        Prediksi Sekarang
+                    </button>
+</div>
+</div>
+<div class="flex flex-col md:flex-row h-full min-h-[500px]" id="state-result">
+<div class="w-full md:w-1/2 h-64 md:h-auto relative bg-gray-900">
+<img alt="Hasil Mie Ayam" class="w-full h-full object-cover opacity-90" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBiHbu6IKtiDGT7624Phs8Qr40Tu0uFXDX3M-9MscFzzhmefm6nmUBQgpq8k0d-jLyLR6enxzww_SL4h8dZl1Lqn7-tf4m1xu6PSu6HC8LV-nzWMfkFa8iEzjUdyjUsk-BwxWuTl837K5Ukxek1cHDPz-HhCfaHnrj9T53gWFoNVvwaxmpCviDb4bwd9Y9a5iPfdNMWH89Pi_hsBYxWviK-M9CGtmHbf3Gu04gbaGEhPwQ5PrTWm8uQvWwF9JyYs-jgDktvewTealI"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent md:hidden flex items-end p-6">
+<div class="text-white">
+<p class="text-sm opacity-80">Terdeteksi:</p>
+<h3 class="text-2xl font-bold">Mie Ayam</h3>
+</div>
+</div>
+</div>
+<div class="w-full md:w-1/2 p-8 md:p-12 flex flex-col justify-center bg-white dark:bg-card-dark">
+<div class="space-y-6">
+<div class="hidden md:block">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-900/30 text-primary text-xs font-bold uppercase tracking-wider mb-2">
+<span class="material-icons-outlined text-sm">verified</span>
+                                Hasil Analisis
+                            </div>
+<h2 class="text-4xl font-bold text-gray-900 dark:text-white">Mie Ayam</h2>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="p-4 rounded-xl bg-gray-50 dark:bg-surface-dark border border-gray-100 dark:border-gray-600">
+<p class="text-sm text-gray-500 dark:text-gray-400 mb-1">Estimasi Kalori</p>
+<div class="flex items-baseline gap-1">
+<span class="text-2xl font-bold text-gray-900 dark:text-white">120</span>
+<span class="text-sm font-medium text-gray-500">kkal</span>
+</div>
+</div>
+<div class="p-4 rounded-xl bg-gray-50 dark:bg-surface-dark border border-gray-100 dark:border-gray-600">
+<p class="text-sm text-gray-500 dark:text-gray-400 mb-1">Ukuran Porsi</p>
+<div class="flex items-baseline gap-1">
+<span class="text-2xl font-bold text-gray-900 dark:text-white">100</span>
+<span class="text-sm font-medium text-gray-500">gram</span>
+</div>
+</div>
+</div>
+<div class="space-y-2 pt-2">
+<div class="flex justify-between text-sm">
+<span class="text-gray-600 dark:text-gray-300 font-medium">Tingkat Akurasi</span>
+<span class="font-bold text-primary">94%</span>
+</div>
+<div class="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2.5 overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 94%"></div>
+</div>
+</div>
+<div class="pt-6 mt-auto">
+<button class="w-full group border border-gray-300 dark:border-gray-500 text-gray-700 dark:text-white py-3.5 px-6 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-600 transition-all flex items-center justify-center gap-2 font-medium">
+<span class="material-icons-outlined text-gray-500 group-hover:text-gray-700 dark:text-gray-400 dark:group-hover:text-white transition-colors">restart_alt</span>
+                                Bersihkan &amp; Analisis Lagi
+                            </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<div class="h-12"></div>
+<script>
+        // Check for dark mode preference
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+
+</body></html>
