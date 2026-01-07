@@ -41,7 +41,6 @@ html, body, [class*="css"] {
     background-color: #F3F4F6;
 }
 
-/* === CARD UTAMA === */
 section[data-testid="stVerticalBlock"] {
     background: white;
     border-radius: 1.5rem;
@@ -51,36 +50,31 @@ section[data-testid="stVerticalBlock"] {
     box-shadow: 0 25px 50px -12px rgba(0,0,0,.15);
 }
 
-/* === FILE UPLOADER === */
 div[data-testid="stFileUploader"] {
     border: 3px dashed #D1D5DB;
     border-radius: 1rem;
     padding: 2.5rem;
     background: #F9FAFB;
-    margin-top: -1.5rem;          /* tarik ke atas */
+    margin-top: -1.5rem;        
     text-align: center;
     color: #6B7280;
     font-size: 0.85rem;
 }
 
-/* tambahkan ruang bawah di uploader */
 div[data-testid="stFileUploader"] {
     padding-bottom: 3.5rem;
     position: relative;
 }
 
-/* hide ugly text */
 div[data-testid="stFileUploader"] small {
     display: none;
 }
 
-/* center text */
 div[data-testid="stFileUploader"] label {
     justify-content: center;
     font-weight: 600;
 }
 
-/* primary button */
 .stButton > button {
     background-color: #2563EB;
     color: white;
@@ -90,18 +84,15 @@ div[data-testid="stFileUploader"] label {
     width: 100%;
 }
             
-/* === CARD PREVIEW MODE === */
 .preview-mode section[data-testid="stVerticalBlock"] {
     max-width: 1100px;
     padding: 2rem;
 }
 
-/* image preview */
 .preview-image img {
     border-radius: 0.75rem;
 }
 
-/* info bar bawah */
 .file-info {
     margin-top: 1rem;
     background: #4B5563;
@@ -114,12 +105,10 @@ div[data-testid="stFileUploader"] label {
     gap: 1rem;
 }
 
-/* container kanan (tombol) */
 .file-action {
     min-width: 140px;
 }
 
-/* pastikan tombol di dalam bar */
 .file-action .stButton > button {
     background-color: #2563EB;
     color: white;
@@ -199,11 +188,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # ======================================================
-# Main Card Wrapper
-# ======================================================
-
-# ======================================================
-# STEP 1 — UPLOAD
+# SECT 1 — UPLOAD
 # ======================================================
 if st.session_state.step == "upload":
 
@@ -215,18 +200,14 @@ if st.session_state.step == "upload":
 
     if uploaded_file is not None:
         try:
-            # reset pointer file
             uploaded_file.seek(0)
 
-            # validasi gambar
             image = Image.open(uploaded_file)
-            image.verify()  # cek struktur file
+            image.verify()  
 
-            # buka ulang setelah verify
             uploaded_file.seek(0)
             image = Image.open(uploaded_file).convert("RGB")
 
-            # valid → lanjut
             st.session_state.uploaded_file = uploaded_file
             st.session_state.image = image
             st.session_state.step = "preview"
@@ -239,7 +220,7 @@ if st.session_state.step == "upload":
             )
 
 # ======================================================
-# STEP 2 — PREVIEW
+# SECT 2 — PREVIEW
 # ======================================================
 elif st.session_state.step == "preview":
 
@@ -276,7 +257,7 @@ elif st.session_state.step == "preview":
 
 
 # ======================================================
-# STEP 3 — LOADING
+# SECT 3 — LOADING
 # ======================================================
 elif st.session_state.step == "loading":
 
@@ -292,7 +273,7 @@ elif st.session_state.step == "loading":
 
 
 # ======================================================
-# STEP 4 — RESULT
+# SECT 4 — RESULT
 # ======================================================
 elif st.session_state.step == "result":
 
@@ -328,3 +309,4 @@ elif st.session_state.step == "result":
         if st.button("Bersihkan & Analisis Lagi"):
             st.session_state.step = "upload"
             st.rerun()
+
