@@ -149,7 +149,7 @@ div[data-testid="stFileUploader"] label {
 # ======================================================
 @st.cache_resource
 def load_model():
-    model_path = BASE_DIR / "model" / "mobilenetv2_finetune_v3.h5"
+    model_path = BASE_DIR / "model" / "mobilenetv2_finetune_lanjutan.h5"
     return tf.keras.models.load_model(model_path)
 
 model = load_model()
@@ -201,7 +201,7 @@ if st.session_state.step == "upload":
 
     uploaded_file = st.file_uploader(
         "",
-        type=["jpg", "jpeg", "png"],
+        type=["jpg", "jpeg", "png", "webp"],
         help="Silahkan Upload Gambar Kamu Di Sini!"
     )
 
@@ -316,6 +316,7 @@ elif st.session_state.step == "result":
         if st.button("Bersihkan & Analisis Lagi"):
             st.session_state.step = "upload"
             st.rerun()
+
 
 
 
